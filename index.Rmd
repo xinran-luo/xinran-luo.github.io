@@ -1,0 +1,22 @@
+---
+title: "Xinran's personal website"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+# Introduction
+
+You can learn more about me [here](about.html)
+
+![](https://media.giphy.com/media/drXGoW1iudhKw/giphy.gif)
+# let's add some links
+
+i often use [google](google.com) to do data science.
+
+## let's add an image
+
+here's my cat:
+
+![](image.jpg)
