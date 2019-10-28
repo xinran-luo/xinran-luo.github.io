@@ -1,0 +1,62 @@
+---
+title: "plotly_hw4"
+output: 
+  html_document:
+    code_folding: hide
+    toc: true
+    toc_float: true
+---
+
+```{r}
+library(tidyverse)
+library(viridis)
+library(p8105.datasets)
+library(plotly)
+```
+
+```{r}
+data("rest_inspec")
+```
+
+```{r}
+set.seed(1)
+rest_sam = 
+  rest_inspec %>% 
+  filter(
+    !is.na(score), 
+    boro == "MANHATTAN")%>%
+  select(
+    dba, action, score, record_date,grade,boro,cuisine_description, critical_flag) %>%
+   
+  sample_n(1000)
+```
+
+# boxplot of the distribution of scores among different cuisine descriptions
+
+```{r}
+rest_sam %>%
+  filter(
+    cuisine_description %in% c("Soups & Sandwiches", "Hotdogs","Bakery","Salads","Steak","Pizza","Seafood"
+  ))%>%
+  mutate(
+    cuisine_description = fct_reorder(cuisine_description, score)) %>% 
+  plot_ly(x = ~cuisine_description, y = ~score, color = ~cuisine_description, type = "box")
+```
+
+# bar chart of number of restaurants in different critical flag groups
+
+```{r}
+rest_sam %>%
+  count(critical_flag)%>%
+  mutate(critical_flag = fct_reorder(critical_flag, n)) %>% 
+  plot_ly(x = ~critical_flag, y = ~n, color = ~critical_flag, type = "bar")
+```
+
+```{r}
+rest_sam %>%
+  plot_ly(
+    x = ~grade, y = ~score, type = "scatter", mode = "markers",
+    color = ~grade, alpha = 0.5)
+```
+
+

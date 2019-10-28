@@ -5,10 +5,14 @@ navbar:
   right:
     - text: "About"
       href: about.html
+    - text: "Resume"
+      href: resume.html
     - icon: fa-envelope fa-lg
       href: mailto:<floridasuper@yeah.net>
     - icon: fa-github fa-lg
       href: https://github.com/xinran-luo/xinran-luo.github.io
+    - icon: fa-linkedin fa-lg
+      href: https://www.linkedin.com/in/xinran-luo-280487173/   
 output:
   html_document:
     theme: cerulean

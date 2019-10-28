@@ -1,5 +1,5 @@
 ---
-title: "Xinran's personal website"
+title: "resume"
 output: 
   html_document:
     toc: true
@@ -7,5 +7,7 @@ output:
 ---
 
 # Introduction
+
+![](resume-xinran luo.pdf)
 
 
