@@ -6,7 +6,11 @@ navbar:
     - text: "About"
       href: about.html
     - text: "Resume"
-      href: resume.html
+      href: resume-xinran luo.pdf
+    - text: "Plotly"
+      href: plotly-hw4.html
+    - text: "dashboard"
+      href: flexdashboard-hw4.html
     - icon: fa-envelope fa-lg
       href: mailto:<floridasuper@yeah.net>
     - icon: fa-github fa-lg
