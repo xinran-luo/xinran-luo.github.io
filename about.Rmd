@@ -1,12 +1,11 @@
 ---
-title: "About xinran"
+title: "About"
 output: 
-  html_document:
-    toc: true
-    toc_float: true
+  html_document
 ---
 
-# Introduction
+# Resume
 
+![](resume-xinran luo.pdf)
 
 

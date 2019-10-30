@@ -26,7 +26,7 @@ rest_sam =
     !is.na(score), 
     boro == "MANHATTAN")%>%
   select(
-    dba, action, score, record_date,grade,boro,cuisine_description, critical_flag) %>%
+    dba, action, score, inspection_date,violation_code, record_date,grade,boro,cuisine_description, critical_flag) %>%
    
   sample_n(1000)
 ```
@@ -34,7 +34,7 @@ rest_sam =
 Column {data-width=650}
 -----------------------------------------------------------------------
 
-### boxplot
+### Chart A:boxplot of the distribution of scores among different cuisine descriptions
 
 ```{r}
 rest_sam %>%
@@ -44,25 +44,27 @@ rest_sam %>%
   mutate(
     cuisine_description = fct_reorder(cuisine_description, score)) %>% 
   plot_ly(x = ~cuisine_description, y = ~score, color = ~cuisine_description, type = "box")
-````
+```
 
 
 Column {data-width=350}
 -----------------------------------------------------------------------
 
-### Chart B
+### Chart B:bar chart of the frequencies of each violation code
 
 ```{r}
 rest_sam %>%
-  count(critical_flag)%>%
-  mutate(critical_flag = fct_reorder(critical_flag, n)) %>% 
-  plot_ly(x = ~critical_flag, y = ~n, color = ~critical_flag, type = "bar")
+  count(violation_code)%>%
+  mutate(violation_code = fct_reorder(violation_code, n)) %>% 
+  plot_ly(x = ~violation_code, y = ~n, type = "bar")
 ```
 
-### Chart C
+
+### Chart C:violin plot of the distribution of scores in each grade group
+
 ```{r}
 rest_sam %>%
   plot_ly(
-    x = ~grade, y = ~score, type = "scatter", mode = "markers",
+    x = ~grade, y = ~score, type = "violin",
     color = ~grade, alpha = 0.5)
 ```
