@@ -26,10 +26,11 @@ rest_sam =
     !is.na(score), 
     boro == "MANHATTAN")%>%
   select(
-    dba, action, score, record_date,grade,inspection_type,violation_code,boro,cuisine_description, critical_flag) %>%
+    dba, score, grade,violation_code,boro,cuisine_description) %>%
    
   sample_n(1000)
 ```
+In the data cleaning process, I removed the observations with missing values of score, restricted to restaurants in Manhattan and selected 6 variables that I am interested in. I set seed=1 and chose 1000 restaurants.
 
 # Chart A
 
@@ -40,8 +41,14 @@ rest_sam %>%
   ))%>%
   mutate(
     cuisine_description = fct_reorder(cuisine_description, score)) %>% 
-  plot_ly(x = ~cuisine_description, y = ~score, color = ~cuisine_description, type = "box")
+  plot_ly(x = ~cuisine_description, y = ~score, color = ~cuisine_description, type = "box")%>%
+  layout(
+         xaxis = list(title = 'Cuisine Description'),
+         yaxis = list(title = 'Score'),
+         showlegend = TRUE
+         )
 ```
+The plot shows the distribution of scores among different types of cuisine. Seven types of cuisine were picked from restaurants in Manhattan. We can see from the plot that the means of scores of different cuisines are similar but the spread of scores are different. Seafood has the widest range of scores, from 7 to 61. Soup and sandwiches have the narrowest range of scores, from 8 to 9.
 
 # Chart B
 
@@ -49,8 +56,13 @@ rest_sam %>%
 rest_sam %>%
   count(violation_code)%>%
   mutate(violation_code = fct_reorder(violation_code, n)) %>% 
-  plot_ly(x = ~violation_code, y = ~n, type = "bar")
+  plot_ly(x = ~violation_code, y = ~n, type = "bar")%>%
+  layout(
+         xaxis = list(title = 'Violation Code'),
+         yaxis = list(title = 'n')
+         )
 ```
+The plot shows the distribution of number of restaurants in Manhattan in each violation code.We can see restaurants violate code 10F the most(n=137) while violate code 02A,02D,04D,05C,10C the least(n=1).
 
 # Chart C
 
@@ -58,6 +70,11 @@ rest_sam %>%
     rest_sam %>%
       plot_ly(
         x = ~grade, y = ~score, type = "violin",
-        color = ~grade, alpha = 0.5)
+        color = ~grade, alpha = 0.5)%>%
+      layout(
+         xaxis = list(title = 'Grade'),
+         yaxis = list(title = 'Score'),
+         showlegend = TRUE
+         )
 ```
-
+This plot shows the distribution of scores among different groups of grade. Restaurants with grade C have the widest spread of scores while restaurants in the "not yet graded" group have the narrowest spread of scores. Since there are many restaurants with missing values of grade, they were ignored when the plot was made.
